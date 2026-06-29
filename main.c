@@ -22,6 +22,7 @@ int wmain(int argc, wchar_t** argv){
         DWORD error = GetLastError();
         if(error == ERROR_FILE_EXISTS) printf("File already exsist !");
         else printf("Error: %lu\n", error);
+        return 1; //exit early! Beecause it failed, there is no handle to close !
     }
 
     CloseHandle(hfile);
