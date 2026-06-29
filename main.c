@@ -8,24 +8,26 @@ int wmain(int argc, wchar_t** argv){
         return 1;
     }
 
-    HANDLE hfile = CreateFileW(
-        argv[1],
-        GENERIC_WRITE,
-        0,
-        NULL,
-        CREATE_NEW,
-        FILE_ATTRIBUTE_NORMAL,
-        NULL
-    );
+    for(int count = 1; count < argc; ++count){
+        HANDLE hfile = CreateFileW(
+            argv[count],
+            GENERIC_WRITE,
+            0,
+            NULL,
+            CREATE_NEW,
+            FILE_ATTRIBUTE_NORMAL,
+            NULL
+        );
 
-    if(hfile == INVALID_HANDLE_VALUE){
-        DWORD error = GetLastError();
-        if(error == ERROR_FILE_EXISTS) printf("File already exsist !");
-        else printf("Error: %lu\n", error);
-        return 1; //exit early! Beecause it failed, there is no handle to close !
+        if(hfile == INVALID_HANDLE_VALUE){
+            DWORD error = GetLastError();
+            if(error == ERROR_FILE_EXISTS) wprintf(L"File %ls already exsist !\n", argv[count]);
+            else printf("Error: %lu\n", error);
+            continue; //exit early! Beecause it failed, there is no handle to close !
+        }
+
+        CloseHandle(hfile);
     }
-
-    CloseHandle(hfile);
 
     return 0;
 }
