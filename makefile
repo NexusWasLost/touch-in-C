@@ -1,2 +1,2 @@
 all:
-	gcc -municode -o main.exe main.c
+	gcc -municode -o wint.exe main.c

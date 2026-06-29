@@ -1,6 +1,26 @@
 #include <stdio.h>
 #include <windows.h>
 
+void displayErrMsg(const wchar_t* argv, DWORD error){
+    switch(error){
+        case ERROR_FILE_EXISTS:
+            wprintf(L"File %ls already exsist !\n", argv);
+            break;
+
+        case ERROR_PATH_NOT_FOUND:
+            wprintf(L"Cannot create %ls in specified path because it does not exists !\n", argv);
+            break;
+
+        case ERROR_DIRECTORY:
+            wprintf(L"Cannot create %ls because directory name is invalid or you put something at the end that is not supposed to be there !\n", argv);
+            break;
+
+        default:
+            printf("Error: %lu\n", error);
+            break;
+    }
+}
+
 int wmain(int argc, wchar_t** argv){
 
     if(argc < 2){
@@ -21,8 +41,7 @@ int wmain(int argc, wchar_t** argv){
 
         if(hfile == INVALID_HANDLE_VALUE){
             DWORD error = GetLastError();
-            if(error == ERROR_FILE_EXISTS) wprintf(L"File %ls already exsist !\n", argv[count]);
-            else printf("Error: %lu\n", error);
+            displayErrMsg(argv[count], error);
             continue; //exit early! Beecause it failed, there is no handle to close !
         }
 
