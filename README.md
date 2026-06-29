@@ -2,7 +2,7 @@
 
 A lightweight, native Windows utility built in C to quickly create files from the command line, mimicking the core file-creation behavior of Unix touch.
 
-[Download WINT here.]()
+[Download WINT here.](https://github.com/NexusWasLost/wint/releases/download/v1.0/wint.exe)
 
 ## Usage
 ```bash
